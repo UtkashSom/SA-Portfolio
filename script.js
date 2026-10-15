@@ -104,9 +104,9 @@
     gt.dir = b.dataset.d; gt.lang = { Hindi: 'hi', Malayalam: 'ml', Arabic: 'ar', Russian: 'ru', Urdu: 'ur' }[b.dataset.l] || 'en';
   }));
 
-  /* ECG line: speeds up on hover and the BPM readout follows */
+  /* ECG line: speeds up on hover */
   (() => {
-    const c = $('#ecg'), g = c.getContext('2d'), bpmEl = $('#bpm');
+    const c = $('#ecg'), g = c.getContext('2d');
     let w, h, dpr, off = 0, running = true, speed = 1, target = 1;
     const size = () => {
       dpr = Math.min(devicePixelRatio || 1, 2); w = c.clientWidth; h = c.clientHeight;
@@ -141,7 +141,6 @@
     const loop = () => {
       if (!running) return;
       speed += (target - speed) * .08; off += .9 * speed; draw();
-      bpmEl.textContent = Math.round(72 * speed);
       requestAnimationFrame(loop);
     };
     c.addEventListener('mouseenter', () => { target = 1.7; });
